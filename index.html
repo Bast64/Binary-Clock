@@ -1,0 +1,106 @@
+<html>
+<head>
+	<title>Binary clock</title>
+	<style>
+		body{
+			background: #000;
+			color: #FFF;
+			margin: 0;
+		}
+		table{
+			height: 100%;
+			width: 100%;
+			text-align: center;
+			border-collapse:collapse;
+		}
+		div{
+			width:40px;
+			height: 40px;
+			border-radius: 20px;
+			border: solid 1px #FFF;	
+			margin: auto;
+		}
+		.select{
+			background: #FFF;
+		}
+		td:nth-child(2), td:nth-child(4){
+			border-right: solid 1px #FFF;
+		}
+	</style>
+</head>
+<body>
+<table>
+	<tr>
+		<td></td>
+		<td><div>&nbsp;</div></td>
+		<td></td>
+		<td><div>&nbsp;</div></td>
+		<td></td>
+		<td><div>&nbsp;</div></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+	</tr>
+	<tr>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+	</tr>
+	<tr>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+		<td><div>&nbsp;</div></td>
+	</tr>
+</table>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	setInterval(function(){timer()},100);
+});
+function timer(){
+	var date = new Date();
+	var heure = splitNumber(date.getHours());
+	var minute = splitNumber(date.getMinutes());
+	var seconde = splitNumber(date.getSeconds());
+	var temps = heure.concat(minute.concat(seconde));
+	$("div").removeClass("select");
+	for(i=0; i<6; i++){
+		var valeur = temps[i];
+		if(valeur >= 8){
+			$("tr:nth-child(1) td:nth-child("+(i+1)+") div").addClass("select");
+			valeur -= 8;
+		}
+		if(valeur >= 4){
+			$("tr:nth-child(2) td:nth-child("+(i+1)+") div").addClass("select");
+			valeur -= 4;
+		}
+		if(valeur >= 2){
+			$("tr:nth-child(3) td:nth-child("+(i+1)+") div").addClass("select");
+			valeur -= 2;
+		}
+		if(valeur >= 1){
+			$("tr:nth-child(4) td:nth-child("+(i+1)+") div").addClass("select");
+		}
+	}
+	console.log(temps);
+}
+function splitNumber(int){
+	var unite = int % 10;
+	var dizaine = Math.floor(int / 10);
+	var tableau = [dizaine, unite];
+	return tableau;
+}
+</script>
+</body>
+</html>
