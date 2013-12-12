@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Binary clock</title>
@@ -12,6 +13,7 @@
 			width: 100%;
 			text-align: center;
 			border-collapse:collapse;
+			position:absolute;
 		}
 		div{
 			width:40px;
@@ -26,9 +28,22 @@
 		td:nth-child(2), td:nth-child(4){
 			border-right: solid 1px #FFF;
 		}
+		th{
+			font-size: 1.4em;
+		}
 	</style>
 </head>
 <body>
+<table>
+	<tr>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+</table>
 <table>
 	<tr>
 		<td></td>
@@ -67,6 +82,7 @@
 <script>
 $(document).ready(function() {
 	setInterval(function(){timer()},100);
+	$("table:first-child").fadeOut(7000);
 });
 function timer(){
 	var date = new Date();
@@ -92,8 +108,10 @@ function timer(){
 		if(valeur >= 1){
 			$("tr:nth-child(4) td:nth-child("+(i+1)+") div").addClass("select");
 		}
+		if($("table:first-child").is(":visible")){
+			$("th:nth-child("+(i+1)+")").text(temps[i]);
+		}
 	}
-	console.log(temps);
 }
 function splitNumber(int){
 	var unite = int % 10;
